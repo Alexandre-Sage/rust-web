@@ -1,0 +1,7 @@
+-- Your SQL goes here
+CREATE  TABLE messages(
+id INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL,
+content VARCHAR NOT NULL,
+title VARCHAR NOT NULL,
+sending_date DATETIME NOT NULL
+);
