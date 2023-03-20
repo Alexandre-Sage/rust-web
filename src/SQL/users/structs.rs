@@ -1,13 +1,6 @@
 use crate::schema::users;
-use diesel::prelude::*;
 use diesel::SqliteConnection;
-#[derive(Queryable, Insertable, Selectable, Debug, PartialEq, Clone)]
-#[diesel(table_name = users)]
-pub struct User {
-    pub id: i32,
-    pub name: String,
-    pub last_name: String,
-}
+
 pub struct UserColumns {
     pub(super) id: users::id,
     pub(super) name: users::name,

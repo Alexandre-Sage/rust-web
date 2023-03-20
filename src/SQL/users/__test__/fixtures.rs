@@ -1,7 +1,7 @@
 pub mod user_repo_fixture {
     use crate::schema::users;
     use crate::SQL::db_connection::DbConnection;
-    use crate::SQL::users::structs::User;
+    use crate::structs::user::User;
     use diesel::prelude::*;
     use rand::random;
     const CONN: &str = "./database.sqlite";
@@ -12,7 +12,7 @@ pub mod user_repo_fixture {
             last_name: format!("Test-{}", id),
         }
     }
-    pub async fn before_test() {
+    pub  fn before_test() {
         let ids: Vec<i32> = vec![
             random::<i32>(),
             random::<i32>(),
@@ -28,7 +28,7 @@ pub mod user_repo_fixture {
             Err(err) => panic!("Err before, {}", err),
         };
     }
-    pub async fn after_test() {
+    pub  fn after_test() {
         match diesel::delete(users::table).execute(&mut DbConnection(CONN)) {
             Ok(d) => d,
             Err(e) => panic!("After {}", e),

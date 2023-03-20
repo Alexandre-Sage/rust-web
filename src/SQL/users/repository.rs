@@ -1,7 +1,6 @@
-
-use super::structs::{User, UserColumns, UserRepository};
-use crate::{schema::users, SQL::db_connection::DbConnection};
-use diesel::{prelude::*};
+use super::structs::{UserColumns, UserRepository};
+use crate::{schema::users, structs::user::User, SQL::db_connection::DbConnection};
+use diesel::prelude::*;
 
 impl UserRepository {
     pub fn new() -> Self {
@@ -15,7 +14,7 @@ impl UserRepository {
             },
         }
     }
-    pub async fn create(&mut self, user: User) {
+    pub  fn create(&mut self, user: User) {
         match diesel::insert_into(self.user_table)
             .values(&user)
             .execute(&mut self.connection)
@@ -24,7 +23,7 @@ impl UserRepository {
             Err(e) => panic!("Diesel err {}", e),
         };
     }
-    pub async fn get_all(&mut self) -> Vec<User> /* -> Result<Vec<User>, diesel::result::Error> */ {
+    pub  fn get_all(&mut self) -> Vec<User> /* -> Result<Vec<User>, diesel::result::Error> */ {
         match self
             .user_table
             .select(users::all_columns)
@@ -34,7 +33,7 @@ impl UserRepository {
             Err(err) => panic!("Get err {}", err),
         }
     }
-    pub async fn get_by_id(&mut self, id: i32) -> User {
+    pub  fn get_by_id(&mut self, id: i32) -> User {
         match self
             .user_table
             .filter(self.columns.id.eq(id))
@@ -46,5 +45,3 @@ impl UserRepository {
         }
     }
 }
-
-
